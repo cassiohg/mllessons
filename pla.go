@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	fmt.Pritnln("Assignments for computer inteligen course on UFRJ 2018")
+	fmt.Pritnln("Assignments for computer intelligence course on UFRJ 2018")
 }
 
