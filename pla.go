@@ -21,9 +21,8 @@ func (f *TargetFunction) calculateFunctionFromPoints () {
 	f.b = f.p1.y - f.slope*f.p1.x
 }
 
-func (f TargetFunction) classifyPoint (p *Point) int {
-	if p.y > f.slope*p.x + f.b { p.class = 1 } else { p.class = -1 }
-	return p.class
+func (f TargetFunction) classifyPoint (p Point) int {
+	if p.y > f.slope*p.x + f.b { return 1 } else { return -1 }
 }
 
 func main() {
@@ -39,8 +38,7 @@ func main() {
 	amountOfPoints := 100
 	points := make([]Point, amountOfPoints)
 	for i := range points {
-		points[i].x, points[i].y = rand.Float32(), rand.Float32()
-		f.classifyPoint(&points[i])
+		points[i].x, points[i].y, points[i].class = rand.Float32(), rand.Float32(), f.classifyPoint(points[i])
 	}
 
 }
