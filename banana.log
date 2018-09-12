@@ -1,0 +1,186 @@
+Cross Validation. kernel: RBF, c: 1, gamma: 0.5, k-fold: 2, accuracy = 0.903019, time: 434.081304ms
+Cross Validation. kernel: RBF, c: 1, gamma: 0.01, k-fold: 2, accuracy = 0.553396, time: 1.430938361s
+Cross Validation. kernel: RBF, c: 1, gamma: 0.5, k-fold: 5, accuracy = 0.9039619999999999, time: 2.169836952s
+Cross Validation. kernel: RBF, c: 1, gamma: 1, k-fold: 2, accuracy = 0.905849, time: 395.218354ms
+Cross Validation. kernel: RBF, c: 1, gamma: 1, k-fold: 5, accuracy = 0.9062260000000001, time: 1.768317967s
+Cross Validation. kernel: RBF, c: 1, gamma: 0.5, k-fold: 10, accuracy = 0.903019, time: 4.5711065s
+Cross Validation. kernel: RBF, c: 1, gamma: 10, k-fold: 2, accuracy = 0.901887, time: 516.777128ms
+Cross Validation. kernel: RBF, c: 1, gamma: 0.01, k-fold: 5, accuracy = 0.590755, time: 7.167724558s
+Cross Validation. kernel: RBF, c: 1, gamma: 1, k-fold: 10, accuracy = 0.9060380000000001, time: 3.602531156s
+Cross Validation. kernel: RBF, c: 1, gamma: 10, k-fold: 5, accuracy = 0.904906, time: 2.308303554s
+Cross Validation. kernel: RBF, c: 1, gamma: 10, k-fold: 10, accuracy = 0.90566, time: 5.558543765s
+Cross Validation. kernel: RBF, c: 1, gamma: 0.01, k-fold: 10, accuracy = 0.599811, time: 15.926985969s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 0, k-fold: 2, accuracy = 0.551698, time: 758.72109ms
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 0, k-fold: 5, accuracy = 0.551698, time: 4.304686103s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 1, k-fold: 2, accuracy = 0.583962, time: 787.53945ms
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 2, k-fold: 2, accuracy = 0.61717, time: 820.663003ms
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 1, k-fold: 5, accuracy = 0.611887, time: 4.36719897s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 0, k-fold: 10, accuracy = 0.551698, time: 9.998927353s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 2, k-fold: 5, accuracy = 0.623019, time: 4.682916598s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 0, k-fold: 2, accuracy = 0.636226, time: 1.014873589s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 1, k-fold: 10, accuracy = 0.61566, time: 11.505988148s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 0, k-fold: 5, accuracy = 0.637925, time: 6.342305594s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 1, k-fold: 2, accuracy = 0.766604, time: 906.355856ms
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.01, coefficient: 2, k-fold: 10, accuracy = 0.6245280000000001, time: 11.736922361s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 2, k-fold: 2, accuracy = 0.766415, time: 1.114435288s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 1, k-fold: 5, accuracy = 0.7679250000000001, time: 5.811735853s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 0, k-fold: 10, accuracy = 0.638113, time: 15.76458011s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 0, k-fold: 2, accuracy = 0.636038, time: 1.984593802s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 2, k-fold: 5, accuracy = 0.7686790000000001, time: 7.754184762s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 1, k-fold: 10, accuracy = 0.767547, time: 15.082793912s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 1, k-fold: 2, accuracy = 0.768302, time: 1.869614542s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 0.5, coefficient: 2, k-fold: 10, accuracy = 0.767547, time: 19.516600163s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 0, k-fold: 5, accuracy = 0.637547, time: 13.588804473s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 2, k-fold: 2, accuracy = 0.768113, time: 2.324345877s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 1, k-fold: 5, accuracy = 0.769245, time: 12.429284654s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 2, k-fold: 5, accuracy = 0.769623, time: 17.145451332s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 0, k-fold: 10, accuracy = 0.6383019999999999, time: 35.957505823s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 1, k-fold: 10, accuracy = 0.768113, time: 31.925767778s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 1, coefficient: 2, k-fold: 10, accuracy = 0.767736, time: 39.28525619s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 1, k-fold: 2, accuracy = 0.76, time: 3m39.328677426s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 0, k-fold: 2, accuracy = 0.521509, time: 6m2.105090401s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 1, k-fold: 5, accuracy = 0.749623, time: 21m43.120497167s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 2, k-fold: 2, accuracy = 0.732453, time: 3m20.879013939s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 0, k-fold: 5, accuracy = 0.613962, time: 35m1.842519635s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 2, k-fold: 5, accuracy = 0.767547, time: 20m55.401932094s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 0, k-fold: 2, accuracy = 0.551698, time: 733.154613ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 0, k-fold: 5, accuracy = 0.551698, time: 3.066044179s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 0, k-fold: 10, accuracy = 0.551698, time: 8.867276542s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 1, k-fold: 2, accuracy = 0.6177360000000001, time: 775.148761ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 1, k-fold: 5, accuracy = 0.623962, time: 4.067126822s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 1, k-fold: 10, accuracy = 0.6254719999999999, time: 10.297704957s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 2, k-fold: 2, accuracy = 0.64283, time: 769.735725ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 2, k-fold: 5, accuracy = 0.6513209999999999, time: 4.29832984s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.01, coefficient: 2, k-fold: 10, accuracy = 0.654717, time: 9.694515583s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 0, k-fold: 2, accuracy = 0.6322639999999999, time: 937.481978ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 0, k-fold: 5, accuracy = 0.6337740000000001, time: 5.769302983s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 0, k-fold: 10, accuracy = 0.632642, time: 13.966346847s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 1, k-fold: 2, accuracy = 0.8962260000000001, time: 478.178084ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 1, k-fold: 5, accuracy = 0.897358, time: 2.857258094s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 1, k-fold: 10, accuracy = 0.8962260000000001, time: 6.490739412s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 2, k-fold: 2, accuracy = 0.896604, time: 667.002199ms
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 2, k-fold: 5, accuracy = 0.897547, time: 4.523708213s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 0.5, coefficient: 2, k-fold: 10, accuracy = 0.8962260000000001, time: 11.086986552s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 0, k-fold: 2, accuracy = 0.632453, time: 2.607276696s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 0, k-fold: 5, accuracy = 0.633585, time: 18.327180691s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 0, k-fold: 10, accuracy = 0.63283, time: 48.660584473s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 1, k-fold: 2, accuracy = 0.8969809999999999, time: 1.256820582s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 1, k-fold: 5, accuracy = 0.8979250000000001, time: 8.227374453s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 1, k-fold: 10, accuracy = 0.896415, time: 21.029052409s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 2, k-fold: 2, accuracy = 0.8967919999999999, time: 2.0516246s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 2, k-fold: 5, accuracy = 0.897736, time: 13.962986607s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 1, coefficient: 2, k-fold: 10, accuracy = 0.8967919999999999, time: 34.018634771s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 1, k-fold: 10, accuracy = 0.771698, time: 57m46.080666847s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 0, k-fold: 2, accuracy = 0.607736, time: 9m48.37380383s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 0, k-fold: 10, accuracy = 0.615094, time: 1h25m41.219325892s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 1, k-fold: 2, accuracy = 0.8833960000000001, time: 4m24.899608077s
+Cross Validation. kernel: polinomial, c: 1, degree: 3, gamma: 10, coefficient: 2, k-fold: 10, accuracy = 0.7432080000000001, time: 56m15.192760759s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 1, k-fold: 5, accuracy = 0.890377, time: 16m21.427629127s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 2, k-fold: 2, accuracy = 0.890943, time: 4m35.138649402s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 0, k-fold: 5, accuracy = 0.580377, time: 47m36.687377256s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 2, k-fold: 5, accuracy = 0.8835850000000001, time: 19m43.504713058s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 0, k-fold: 2, accuracy = 0.551698, time: 712.825547ms
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 0, k-fold: 5, accuracy = 0.551698, time: 3.088211832s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 0, k-fold: 10, accuracy = 0.551698, time: 8.703329556s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 1, k-fold: 2, accuracy = 0.626981, time: 762.17268ms
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 1, k-fold: 5, accuracy = 0.6322639999999999, time: 4.074010236s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 1, k-fold: 10, accuracy = 0.634717, time: 10.079761268s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 2, k-fold: 2, accuracy = 0.66717, time: 749.92372ms
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 2, k-fold: 5, accuracy = 0.68, time: 4.031094097s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.01, coefficient: 2, k-fold: 10, accuracy = 0.682264, time: 10.506210088s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 0, k-fold: 2, accuracy = 0.583962, time: 1.831850671s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 0, k-fold: 5, accuracy = 0.579057, time: 10.831709843s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 0, k-fold: 10, accuracy = 0.5786789999999999, time: 26.640091348s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 1, k-fold: 2, accuracy = 0.9039619999999999, time: 431.922498ms
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 1, k-fold: 5, accuracy = 0.905472, time: 2.331638865s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 1, k-fold: 10, accuracy = 0.903774, time: 5.481793548s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 2, k-fold: 2, accuracy = 0.904717, time: 869.711497ms
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 2, k-fold: 5, accuracy = 0.9052830000000001, time: 4.445795684s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 2, k-fold: 10, accuracy = 0.903774, time: 10.643613638s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 0, k-fold: 2, accuracy = 0.583962, time: 23.317964359s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 0, k-fold: 5, accuracy = 0.579057, time: 2m12.676210516s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 0, k-fold: 10, accuracy = 0.5786789999999999, time: 5m32.642646487s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 1, k-fold: 2, accuracy = 0.903774, time: 1.84277734s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 1, k-fold: 5, accuracy = 0.9052830000000001, time: 9.657939818s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 1, k-fold: 10, accuracy = 0.903019, time: 23.75624198s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 2, k-fold: 2, accuracy = 0.9033960000000001, time: 3.412367509s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 2, k-fold: 5, accuracy = 0.904717, time: 16.736018183s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 1, coefficient: 2, k-fold: 10, accuracy = 0.90283, time: 45.617457548s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 1, k-fold: 10, accuracy = 0.870943, time: 53m6.795394581s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 0, k-fold: 2, accuracy = 0.575094, time: 10m4.197981648s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 2, k-fold: 10, accuracy = 0.886604, time: 50m28.442778965s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 1, k-fold: 2, accuracy = 0.63, time: 5m44.349863719s
+Cross Validation. kernel: polinomial, c: 1, degree: 4, gamma: 10, coefficient: 0, k-fold: 10, accuracy = 0.569245, time: 1h48m30.052302589s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 0, k-fold: 5, accuracy = 0.569057, time: 39m55.655975987s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 2, k-fold: 2, accuracy = 0.626792, time: 6m21.143131156s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 1, k-fold: 5, accuracy = 0.651887, time: 25m23.801341178s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 2, k-fold: 5, accuracy = 0.627925, time: 30m5.113393116s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 1, k-fold: 10, accuracy = 0.62283, time: 1h2m45.475337339s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 0, k-fold: 10, accuracy = 0.544906, time: 1h32m26.669802411s
+Cross Validation. kernel: polinomial, c: 1, degree: 5, gamma: 10, coefficient: 2, k-fold: 10, accuracy = 0.588679, time: 1h4m28.746451532s
+Cross Validation. kernel: linear, c: 1, k-fold: 2, accuracy = 0.551698, time: 827.540253ms
+Cross Validation. kernel: linear, c: 1, k-fold: 5, accuracy = 0.551698, time: 3.913217822s
+Cross Validation. kernel: linear, c: 1, k-fold: 10, accuracy = 0.551698, time: 7.522743515s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 0, k-fold: 2, accuracy = 0.551698, time: 1.436805295s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 1, k-fold: 2, accuracy = 0.551698, time: 1.536636987s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 0, k-fold: 5, accuracy = 0.551698, time: 7.073858274s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 2, k-fold: 2, accuracy = 0.551698, time: 1.684571165s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 1, k-fold: 5, accuracy = 0.551698, time: 7.48637001s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 0, k-fold: 10, accuracy = 0.551698, time: 17.756189135s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 2, k-fold: 5, accuracy = 0.551698, time: 9.304841758s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 1, k-fold: 10, accuracy = 0.551698, time: 16.633403199s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 0, k-fold: 2, accuracy = 0.291321, time: 1.341592964s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 1, k-fold: 2, accuracy = 0.349623, time: 1.308910936s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 0, k-fold: 5, accuracy = 0.289434, time: 5.642674926s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 1, k-fold: 5, accuracy = 0.34452800000000006, time: 6.346097799s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 2, k-fold: 2, accuracy = 0.483396, time: 1.052401981s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 2, k-fold: 10, accuracy = 0.551698, time: 19.910115081s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 0, k-fold: 10, accuracy = 0.29, time: 14.594943992s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 2, k-fold: 5, accuracy = 0.483396, time: 6.086691045s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 0, k-fold: 2, accuracy = 0.283396, time: 1.235145152s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 1, k-fold: 10, accuracy = 0.342075, time: 16.252093829s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 0, k-fold: 5, accuracy = 0.281509, time: 6.505862527s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 1, k-fold: 2, accuracy = 0.319057, time: 1.478535697s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 0.5, coefficient: 2, k-fold: 10, accuracy = 0.48509399999999997, time: 14.552230632s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 2, k-fold: 2, accuracy = 0.35962299999999997, time: 1.537747762s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 1, k-fold: 5, accuracy = 0.318491, time: 6.907356534s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 0, k-fold: 10, accuracy = 0.281887, time: 15.269364998s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 0, k-fold: 2, accuracy = 0.32490600000000003, time: 1.289255786s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 2, k-fold: 5, accuracy = 0.363585, time: 7.564242736s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 0, k-fold: 5, accuracy = 0.32490600000000003, time: 6.421780668s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 1, k-fold: 2, accuracy = 0.323585, time: 1.269133078s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 1, k-fold: 10, accuracy = 0.31830200000000003, time: 17.260469084s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 1, k-fold: 5, accuracy = 0.321887, time: 6.121487892s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 1, coefficient: 2, k-fold: 10, accuracy = 0.359434, time: 17.70147401s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 2, k-fold: 2, accuracy = 0.313774, time: 1.37620029s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 0, k-fold: 10, accuracy = 0.325283, time: 15.682696288s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 2, k-fold: 5, accuracy = 0.312075, time: 7.900474128s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 1, k-fold: 10, accuracy = 0.322453, time: 14.885573798s
+Cross Validation. kernel: sigmoid, c: 1, gamma: 10, coefficient: 2, k-fold: 10, accuracy = 0.313396, time: 15.522908227s
+best linear
+>>> kernel: linear, c: 1, k-fold: 2, accuracy = 0.551698
+best polinomial
+>>> kernel: polinomial, c: 1, degree: 5, gamma: 0.5, coefficient: 1, k-fold: 5, accuracy = 0.905472
+best RBF
+>>> kernel: RBF, c: 1, gamma: 1, k-fold: 5, accuracy = 0.9062260000000001
+best sigmoid
+>>> kernel: sigmoid, c: 1, gamma: 0.01, coefficient: 0, k-fold: 2, accuracy = 0.551698
+
+transformation order: 2, iterations: 100000, inError: 0.24471698113207546
+image saved at: bananaModelAreaOrder2.png
+transformation order: 3, iterations: 100000, inError: 0.1669811320754717
+image saved at: bananaModelAreaOrder3.png
+transformation order: 4, iterations: 100000, inError: 0.0969811320754717
+image saved at: bananaModelAreaOrder4.png
+transformation order: 5, iterations: 100000, inError: 0.0930188679245283
+image saved at: bananaModelAreaOrder5.png
+transformation order: 6, iterations: 100000, inError: 0.09773584905660378
+image saved at: bananaModelAreaOrder6.png
+transformation order: 7, iterations: 100000, inError: 0.0960377358490566
+image saved at: bananaModelAreaOrder7.png
+transformation order: 8, iterations: 100000, inError: 0.09886792452830188
+image saved at: bananaModelAreaOrder8.png
+transformation order: 9, iterations: 100000, inError: 0.09981132075471698
+image saved at: bananaModelAreaOrder9.png
+transformation order: 10, iterations: 100000, inError: 0.12811320754716982
+image saved at: bananaModelAreaOrder10.png
