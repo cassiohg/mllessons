@@ -377,10 +377,10 @@ func tryAllSVMsAndFindBestModel (pathToTrainProgram, pathToDataFile string, numb
 	// all values used to generate all possible combinations of these parameters.
 	kernels := []int{RBF, POLY, LINEAR, SIGMOID}
 	cs := []float64{1.0}
-	degrees := []int{5}
-	gammas := []float64{1.0}
-	coefficients := []float64{ 2.0}
-	folds := []int{2}
+	degrees := []int{3, 4, 5, 6, 7}
+	gammas := []float64{0.01, 0.5, 1.0}
+	coefficients := []float64{0.0, 1.0, 2.0}
+	folds := []int{2, 5, 10}
 
 	combinations := make([][]Combination, 4) // LIBSVM has 4 kernel types starting a 0, fortunately. so we don't need a map.
 	for i := range combinations { combinations[i] = make([]Combination, 0) }
@@ -717,5 +717,5 @@ func main() {
 	lastTransformationOrderToTryForPeceptron := 10
 	amountOfFoldsInCrossValidation := 10
 	tryPerceptronWithTransformationAndDrawResults(lastTransformationOrderToTryForPeceptron, amountOfFoldsInCrossValidation, 
-		pathToDataFile, pathToModelAreaImageFile, scale, numberOfThreadsToUse)
+		pathToDataFile, 	pathToModelAreaImageFile, scale, numberOfThreadsToUse)
 }
