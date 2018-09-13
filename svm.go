@@ -20,8 +20,21 @@ import (
 //uses https://www.csie.ntu.edu.tw/~cjlin/libsvm/. Download, make, move svm-train and svm-predict to this file's folder.	
 )
 
-// saves a given 'image' encoded as png at given 'filename' path.
-func saveImage (image image.Image, filename string) {
+// receives a given 'image', mirrors it in the Y axis and save it at given path 'filename' encoded as png.
+func saveImage (image *image.RGBA, filename string) {
+	bounds := image.Bounds()
+	var k1, k2 int
+	var aux, aux1, axu2, aux3 uint8
+	for j := bounds.Min.Y; j < (bounds.Max.Y+bounds.Min.Y)/2; j++ {
+		for i := bounds.Min.X; i < bounds.Max.X; i++ {
+			k1 = image.PixOffset(i, j)
+			k2 = image.PixOffset(i, bounds.Max.Y - (j - bounds.Min.Y) -1)
+			aux, aux1, axu2, aux3 = image.Pix[k2], image.Pix[k2+1], image.Pix[k2+2], image.Pix[k2+3]
+			image.Pix[k2], image.Pix[k2+1], image.Pix[k2+2], image.Pix[k2+3] = image.Pix[k1], image.Pix[k1+1], 
+				image.Pix[k1+2], image.Pix[k1+3]
+			image.Pix[k1], image.Pix[k1+1], image.Pix[k1+2], image.Pix[k1+3] = aux, aux1, axu2, aux3
+		}
+	}
 	file, err := os.Create(filename)
 	if err != nil { log.Fatal(err) }
 	if err := png.Encode(file, image); err != nil { file.Close(); log.Fatal(err) }
@@ -29,17 +42,24 @@ func saveImage (image image.Image, filename string) {
 	fmt.Println("image saved at:", filename)
 }
 
-/* sets all pixels in given 'image' to given 'color' value.  */
-func fillRect (image *image.RGBA, color color.RGBA) {
-	r, g, b, a := color.RGBA()
+/* executes given 'doAt' function, passing every pixel (i,j) that belongs to given 'image.' */
+func runThroughImage (image *image.RGBA, doAt func (int, int)) {
 	bounds := image.Bounds()
 	for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
 		for i := bounds.Min.X; i < bounds.Max.X; i++ {
-			offset := image.PixOffset(i, j)
-			image.Pix[offset], image.Pix[offset+1], image.Pix[offset+2], image.Pix[offset+3] = uint8(r), 
-				uint8(g), uint8(b), uint8(a)
+			doAt(i, j)
 		}
 	}
+}
+
+/* sets all pixels in given 'image' to given 'color' value.  */
+func fillRect (image *image.RGBA, color color.RGBA) {
+	r, g, b, a := color.RGBA()
+	var k int
+	runThroughImage(image , func (i, j int) {
+		k = image.PixOffset(i, j)
+		image.Pix[k], image.Pix[k+1], image.Pix[k+2], image.Pix[k+3] = uint8(r), uint8(g), uint8(b), uint8(a)
+	})
 }
 
 /* returns the weighted average between given value 'a' and given value 'b'. The weight applied is given 'strength' to 
@@ -51,28 +71,31 @@ func addChannelColor (a uint8, b uint8, strength float64) uint8 {
 /* sets all pixels in given 'image' to the weighted average between given 'color' and the pixel found in every position of 
 that image, maintaining pixel's alpha */
 func fillRectAdding (image *image.RGBA, color color.RGBA) {
-	r, g, b, _ := color.RGBA()
-	bounds := image.Bounds()
-	for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
-		for i := bounds.Min.X; i < bounds.Max.X; i++ {
-			offset := image.PixOffset(i, j)
-			image.Pix[offset  ] = addChannelColor(uint8(r), image.Pix[offset  ], 0.5)
-			image.Pix[offset+1] = addChannelColor(uint8(g), image.Pix[offset+1], 0.5)
-			image.Pix[offset+2] = addChannelColor(uint8(b), image.Pix[offset+2], 0.5)
+	r, g, b, a := color.RGBA()
+	uinta := uint8(a)
+	var k int
+	runThroughImage(image , func (i, j int) {
+		k = image.PixOffset(i, j)
+		image.Pix[k  ] = addChannelColor(uint8(r), image.Pix[k  ], 0.5)
+		image.Pix[k+1] = addChannelColor(uint8(g), image.Pix[k+1], 0.5)
+		image.Pix[k+2] = addChannelColor(uint8(b), image.Pix[k+2], 0.5)
+		if uinta > image.Pix[k+3] {
+			image.Pix[k+3] = uinta
 		}
-	}
+	})
 }
 
 /* sets pixel in given 'image' at position given 'x' and given 'y' to the weighted average between its color and given 
 'color', maintaining pixel's alpha. */
 func addColorAt(x, y int, image *image.RGBA, color color.RGBA) {
 	r, g, b, a := color.RGBA()
-	offset := image.PixOffset(x, y)
-	image.Pix[offset  ] = addChannelColor(uint8(r), image.Pix[offset  ], 0.25)
-	image.Pix[offset+1] = addChannelColor(uint8(g), image.Pix[offset+1], 0.25)
-	image.Pix[offset+2] = addChannelColor(uint8(b), image.Pix[offset+2], 0.25)
-	image.Pix[offset+3] = uint8(a)
-
+	k := image.PixOffset(x, y)
+	image.Pix[k  ] = addChannelColor(uint8(r), image.Pix[k  ], 0.25)
+	image.Pix[k+1] = addChannelColor(uint8(g), image.Pix[k+1], 0.25)
+	image.Pix[k+2] = addChannelColor(uint8(b), image.Pix[k+2], 0.25)
+	if uint8(a) > image.Pix[k+3] {
+		image.Pix[k+3] = uint8(a)
+	}
 }
 
 
@@ -85,10 +108,11 @@ func setPointAround(x, y int, image *image.RGBA, color color.RGBA) {
 	if bounds.Max.X > x+thickness { maxX = x+thickness } else { maxX = bounds.Max.X }
 	if bounds.Min.Y < y-thickness { minY = y-thickness } else { minY = bounds.Min.Y }
 	if bounds.Max.Y > y+thickness { maxY = y+thickness } else { maxY = bounds.Max.Y }
+	var k int
 	for j := minY; j <= maxY; j++ {
 		for i := minX; i <= maxX; i++ {
-			offset := image.PixOffset(i, j)
-			image.Pix[offset], image.Pix[offset+1], image.Pix[offset+2], image.Pix[offset+3] = uint8(r), 
+			k = image.PixOffset(i, j)
+			image.Pix[k], image.Pix[k+1], image.Pix[k+2], image.Pix[k+3] = uint8(r), 
 				uint8(g), uint8(b), uint8(a)
 		}
 	}
@@ -128,24 +152,6 @@ func convertDataToLibsvmFormat (readFileName, writeFileName string) {
 	fmt.Println("data points file saved at:", writeFileName)
 }
 
-/* saves all given 'image' pixels, with x and y values divided by given 'scale' as points using LIBSVM file format to path 
-'pathToGridFile' */
-func saveGridToFile (pathToGridFile string, image image.Image, scale float64) {
-	outStringSlice := make([]string, 0)
-	bounds := image.Bounds()
-	for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
-		for i := bounds.Min.X; i < bounds.Max.X; i++ {
-			outStringSlice = append(outStringSlice, fmt.Sprintf("1 1:%v 2:%v", float64(i)/scale, float64(j)/scale))
-		}
-	}
-	file, err := os.Create(pathToGridFile)
-	if err != nil { log.Fatal(err) }
-	if _, err := file.WriteString(strings.Join(outStringSlice, "\n")); err != nil { log.Fatal(err) }
-	if err := file.Close(); err != nil { log.Fatal(err) }
-	fmt.Println("grid points file saved at:", pathToGridFile)	
-
-}
-
 /* returns a slice of labels and a matrix of attributes, where each line is a data point, after reading LIBSVM data file 
 at given 'pathToDataFile' and skiping the first 'skipedFirstLines'. */
 func readPoints (pathToDataFile string, skipedFirstLines int) ([]float64, [][]float64) {
@@ -178,8 +184,9 @@ will depend on the point's values. */
 func buildImageBigEnoughToFitPoints (xs [][]float64, scale float64) *image.RGBA {
 	minX, maxX, minY, maxY := xs[0][0], xs[0][0], xs[0][1], xs[0][1]
 	for i := range xs {
-		if maxX < xs[i][0] { maxX = xs[i][0] } else if minX > xs[i][0] { minX = xs[i][0] }
-		if maxY < xs[i][1] { maxY = xs[i][1] } else if minY > xs[i][1] { minY = xs[i][1] }
+		x, y := xs[i][0], xs[i][1]
+		if maxX < x { maxX = x } else if minX > x { minX = x }
+		if maxY < y { maxY = y } else if minY > y { minY = y }
 	}
 	extraSpace := 0.05
 	widthExtra, heightExtra := (maxX-minX)*extraSpace, (maxY-minY)*extraSpace
@@ -187,6 +194,22 @@ func buildImageBigEnoughToFitPoints (xs [][]float64, scale float64) *image.RGBA 
 		int(math.Round((maxX+widthExtra)*scale)), int(math.Round((maxY+heightExtra)*scale))))
 	fillRect(image, color.RGBA{0, 0, 0, 255})
 	return image	
+}
+
+/* saves all given 'image' pixels, with x and y values divided by given 'scale' as points using LIBSVM file format to path 
+'pathToGridFile' */
+func saveGridToFile (pathToGridFile string, image *image.RGBA, scale float64) {
+	outStringSlice := make([]string, 0)
+	runThroughImage(image, func (i, j int) {
+		outStringSlice = append(outStringSlice, fmt.Sprintf("1 1:%v 2:%v", float64(i)/scale, float64(j)/scale))
+	})
+	
+	file, err := os.Create(pathToGridFile)
+	if err != nil { log.Fatal(err) }
+	if _, err := file.WriteString(strings.Join(outStringSlice, "\n")); err != nil { log.Fatal(err) }
+	if err := file.Close(); err != nil { log.Fatal(err) }
+	fmt.Println("grid points file saved at:", pathToGridFile)	
+
 }
 
 /* draw, in given 'image', which positions are specified by 2-attribute data points 'xs' matrix which values are 
@@ -223,26 +246,22 @@ scale float64) *image.RGBA {
 
 	lines := strings.Split(readFileAsString(pathToPredictionFile), "\n")
 	lines = lines[:len(lines)-1]
-	labelsGrid := make([]float64, len(lines))
+	gridLabels := make([]float64, len(lines))
 	for i := range lines {
 		line := strings.Split(lines[i], " ")
 		n, _ := strconv.ParseFloat(line[0], 64)
-		labelsGrid[i] = n
+		gridLabels[i] = n
 	}
-	// _, xsGrid := readPoints(pathToGridFile, 0)
 
-	bounds := image.Bounds()
 	k := 0
-	for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
-		for i := bounds.Min.X; i < bounds.Max.X; i++ {
-			addColorAt(i, j,image, color.RGBA{(255/2)*uint8(1+labelsGrid[k]), (255/2)*uint8(1-labelsGrid[k]), 0, 255})
-			k++
-		}
-	}
+	runThroughImage(image, func (i, j int) {
+		addColorAt(i, j,image, color.RGBA{(255/2)*uint8(1+gridLabels[k]), (255/2)*uint8(1-gridLabels[k]), 0, 255})
+		k++
+	})
 
 	drawPointsInImage(labels, xs, image, scale)
 
-	saveImage(image, pathToModelAreaImageFile)
+	// saveImage(image, pathToModelAreaImageFile)
 	return image
 }
 
@@ -358,10 +377,10 @@ func tryAllSVMsAndFindBestModel (pathToTrainProgram, pathToDataFile string, numb
 	// all values used to generate all possible combinations of these parameters.
 	kernels := []int{RBF, POLY, LINEAR, SIGMOID}
 	cs := []float64{1.0}
-	degrees := []int{3, 4, 5}
-	gammas := []float64{0.01, 0.5, 1.0, 10.0}
-	coefficients := []float64{0.0, 1.0, 2.0}
-	folds := []int{2, 5, 10}
+	degrees := []int{5}
+	gammas := []float64{1.0}
+	coefficients := []float64{ 2.0}
+	folds := []int{2}
 
 	combinations := make([][]Combination, 4) // LIBSVM has 4 kernel types starting a 0, fortunately. so we don't need a map.
 	for i := range combinations { combinations[i] = make([]Combination, 0) }
@@ -558,7 +577,7 @@ func crossValdidatePerceptronWithTransformationOfOrder(n int, points []Point, am
 cvError *float64, callback func ()) {
 	defer callback()
 	
-	fmt.Println("started working on cross validation for transformation of order", n)
+	// fmt.Println("started working on cross validation for transformation of order", n)
 	newPoints := copyPoints(points)
 
 	transformationFunction := func (x []float64) []float64 { return transformationOfOrderN(n, x) }
@@ -568,7 +587,7 @@ cvError *float64, callback func ()) {
 	
 	e := crossValidate(folds, trainPerceptronAndEvaluatesValidationSet)
 
-	fmt.Printf("transformation order: %v, averageCrossValidationError: %v\n", n, e)
+	fmt.Printf("transformation order: %v, accuracy: %v\n", n, 1-e)
 	*cvError = e	
 }
 
@@ -577,10 +596,9 @@ applied to points read from file at given path 'pathToDataFile', where the first
 is of order given by 'lastTransformationOrderToTry', selects the transformation that gave the highest accuracy and creates 
 and saves an image with the area/contour/decision boundary of that transformation in the background of the points read from
 given file path. */
-func tryPerceptronWithTransformationAndDrawResults (lastTransformationOrderToTry int, pathToDataFile, 
-pathToModelAreaImageFile string, scale float64, numberOfThreadsToUse int) {
+func tryPerceptronWithTransformationAndDrawResults (lastTransformationOrderToTry, amountOfFoldsInCrossValidation int, 
+	pathToDataFile, pathToModelAreaImageFile string, scale float64, numberOfThreadsToUse int) {
 
-	amountOfFoldsInCrossValidation := 10
 	firstTranformationOrderToTry := 2
 	fmt.Println("Trying perceptron after applying transformation to data points.")
 	fmt.Printf("We will try transformations from order %v until order %v\n", firstTranformationOrderToTry, 
@@ -617,15 +635,12 @@ pathToModelAreaImageFile string, scale float64, numberOfThreadsToUse int) {
 
 	//drawing area/contour/decision boundary image.
 	image := buildImageBigEnoughToFitPoints(xs, scale)
-	bounds := image.Bounds()
-	for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
-		for i := bounds.Min.X; i < bounds.Max.X; i++ {
-			gridPointParameters := transformationOfOrderN(bestOrder, []float64{1.0, float64(i)/scale, float64(j)/scale})
-			label := 0
-			if dotProduct(weights, gridPointParameters) > 0 { label = 1 } else { label = -1 }
-			addColorAt(i, j,image, color.RGBA{(255/2)*uint8(1+label), (255/2)*uint8(1-label), 0, 255})
-		}
-	}
+	runThroughImage(image, func (i, j int) {
+		gridPointParameters := transformationOfOrderN(bestOrder, []float64{1.0, float64(i)/scale, float64(j)/scale})
+		label := 0
+		if dotProduct(weights, gridPointParameters) > 0 { label = 1 } else { label = -1 }
+		addColorAt(i, j,image, color.RGBA{(255/2)*uint8(1+label), (255/2)*uint8(1-label), 0, 255})
+	})
 
 	// drawing original points
 	drawPointsInImage(labels, xs, image, scale)
@@ -637,7 +652,7 @@ pathToModelAreaImageFile string, scale float64, numberOfThreadsToUse int) {
 }
 
 func main() {
-	numberOfThreadsToUse := 4
+	numberOfThreadsToUse := 2
 	runtime.GOMAXPROCS(numberOfThreadsToUse)
 	fmt.Println("Assignments for computer intelligence course ii on UFRJ 2018\n")
 
@@ -685,7 +700,7 @@ func main() {
 		wg.Add(1); semaphore <- struct{}{} // blocks execution until one thread has finished.
 		// draw best models in parallel in another thread.
 		go func (pathToModelFile, pathToPredictionFile, pathToModelAreaImageFile string, combination Combination) {
-			defer func () { wg.Done(); <-semaphore })
+			defer func () { wg.Done(); <-semaphore }()
 			// traing with all points.
 			train(pathToTrainProgram, pathToDataFile, pathToModelFile, combination)
 			// predict all image pixels to make area/contour/decision boundary image. 
@@ -700,7 +715,7 @@ func main() {
 
 	//// item 4.
 	lastTransformationOrderToTryForPeceptron := 10
-	tryPerceptronWithTransformationAndDrawResults(lastTransformationOrderToTryForPeceptron, pathToDataFile, 
-		pathToModelAreaImageFile, scale, numberOfThreadsToUse)
-
+	amountOfFoldsInCrossValidation := 10
+	tryPerceptronWithTransformationAndDrawResults(lastTransformationOrderToTryForPeceptron, amountOfFoldsInCrossValidation, 
+		pathToDataFile, pathToModelAreaImageFile, scale, numberOfThreadsToUse)
 }
