@@ -4,16 +4,18 @@
 3- Install go: https://golang.org/
 
 4- Download this repository using go.
-  go install https://github.com/cassiohg/mllessons
+* go install https://github.com/cassiohg/mllessons
 
 5- copy libsvm programs to mllessons folder
-  cp path/to/svm-train path/to/mllessons
-  cp path/to/svm-predict path/to/mllessons
+* cp path/to/svm-train path/to/mllessons
+* cp path/to/svm-predict path/to/mllessons
 
 then
-  cd path/to/mllessons
+* cd path/to/mllessons
+
 6- either
-  go run *.go
+* go run *.go
+
 6- or
-  go install
-  ./mlclass
+* go install
+* ./mlclass
