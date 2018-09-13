@@ -16,9 +16,9 @@ func random () float {
 
 // structure representing a data point.
 type Point struct {
+	y 	      float64   // point classification.
 	x 	      []float64 // slice/array of data point parameters.
 	originalX []float64 // slice reference to original backing array for 'x' parameters.
-	y 	      float64   // point classification.
 }
 
 /* a method that receives a transformation function as argument that is expected to receive a slice of floats and return 
@@ -26,6 +26,36 @@ another slice of floats (they don't have to have the same lengths). */
 func (point *Point) transform (transformation func([]float64) []float64) {
 	// substitute reference to slice 'x' of a point by a transformation applied to it's own original 'x' slice.
 	point.x = transformation(point.originalX)
+}
+
+/* sets given 'target' Point object that uses the same backing array for attribute 'originalX' slice and a copy of attribute 
+'x' with brand new slice and backing array (full copy). Attribute 'y' is copied by value to returned object. */
+func (point *Point) weakCopyTo (target *Point) {
+	target.y = point.y
+	target.originalX = point.originalX
+	target.x = make([]float64, len(point.x)) // making brand new backing array for 'x'.
+	for i := range point.x { target.x[i] = point.x[i]} // copying values from 'point's x to 'newpoint's 'x'.
+}
+
+/* returns another Point object that uses the same backing array for attribute 'originalX' slice and a copy of attribute 
+'x' with brand new slice and backing array (full copy). Attribute 'y' is copied by value to returned object. */
+func (point *Point) weakCopy () Point {
+	newpoint := Point{originalX: point.originalX, y: point.y} // creating new points using same 'originalX' backing array.
+	newpoint.x = make([]float64, len(point.x)) // making brand new backing array for 'x'.
+	for i := range point.x { newpoint.x[i] = point.x[i]} // copying values from 'point's x to 'newpoint's 'x'.
+	return newpoint // return reference to that 'newpoint'.
+}
+
+/* sets given 'label' (y value) and given 'features' (x parameters) to this point. */
+func (p *Point) set (label float64, features[]float64) {
+	pointSize := len(features)+1 // increments point length by 1 to accommodate w0 (the bias) later.
+	p.x = make([]float, pointSize) // creates a slice of length equal to 'pointSize' to hold the parameters values.
+	p.x[0] = 1.0 // sets first parameter is always 1.0.
+	for j := 1; j < pointSize; j++ { // for each parameter, starting from second parameter.
+		p.x[j] = features[j-1] // set given values.
+	}
+	p.originalX = p.x // making another reference to the original data in case we make a transformation to x slice.
+	p.y = label // set given class.
 }
 
 /* any structure that implements these methods can be used by objects of type 'TargetFunction'. therefore, each structure 
@@ -69,16 +99,14 @@ func (f circleFunction) classifyPoint (x []float64) float64 {
 	if ((x[1]*x[1])-f.a) + ((x[2]*x[2])-f.b) > f.c { return 1.0 } else { return -1.0 }
 }
 
-/* sets label and features for one given pointer to a Point */
-func createPointFromData (p *Point, label float64, features[]float64) {
-	pointSize := len(features)+1 // increments point length by 1 to accommodate w0 (the bias) later.
-	p.x = make([]float, pointSize) // creates a slice of length equal to 'pointSize' to hold the parameters values.
-	p.x[0] = 1.0 // sets first parameter is always 1.0.
-	for j := 1; j < pointSize; j++ { // for each parameter, starting from second parameter.
-		p.x[j] = features[j-1] // set given values.
+/* creates a new slice with new Points copying point values from given slice of points 'originalPoints' but maintaining 
+backing array for attribute 'originalX'. */
+func copyPoints (originalPoints []Point) []Point {
+	newPoints := make([]Point, len(originalPoints))
+	for i := range originalPoints {
+		originalPoints[i].weakCopyTo(&newPoints[i])
 	}
-	p.originalX = p.x // making another reference to the original data in case we make a transformation to x slice.
-	p.y = label // set given class.
+	return newPoints
 }
 
 /* receives a matrix 'xVectors' representing all points and a 'labels' slace representing the classes and returns an slice 
@@ -86,7 +114,7 @@ of type Point. In here, w0 is added to the data. */
 func createPointsFromData(labels []float64, xVectors [][]float64) []Point {
 	points := make([]Point, len(xVectors)) // creating an slice full of points with all value defaulting to zeros.
 	for i := range points { // for each index i in points.
-		createPointFromData(&points[i], labels[i], xVectors[i]) // set values to this point.
+		points[i].set(labels[i], xVectors[i]) // set values to this point.
 	}
 	return points // return slice of points.
 }
@@ -119,6 +147,13 @@ func dotProduct (v1 []float64, v2 []float64) float64 {
 	return sum
 }
 
+/* given a 'weightVector' and a point 'p', if the dot product result is bigger than zero but the point classification is not 
+bigger than zero, in other words, if the class estimated by the weights is not the correct class known to the point, 
+return true, if estimated class is correct, returns false. */
+func isMissClassFied (weightVector []float64, p Point) bool {
+	if (dotProduct(weightVector, p.x) > 0.0) != (p.y > 0.0) { return true } else { return false }
+}
+
 /* executes the perceptron learning algorithm on given 'points' and returns two values: a slice of weights, having the same 
 length as the amount of parameters found in the given 'points' and returns the amount of iterations. */
 func pla (points []Point, initialWeights []float64, maxIterations int) ([]float64, int, float64) {
@@ -141,7 +176,7 @@ func pla (points []Point, initialWeights []float64, maxIterations int) ([]float6
 		for i := range points { // for each index i in points.
 			/* if the dot product result is bigger than zero but the point classification is not bigger than zero. In other 
 			words, if the class estimated by the weights is not the correct class known to the point. */
-			if (dotProduct(weightVector, points[i].x) > 0.0) != (points[i].y > 0.0) {
+			if isMissClassFied(weightVector, points[i]) {
 				// adds the point's index to the slice of miss classified points.
 				missClassifiedPoints = append(missClassifiedPoints, i)
 			}
@@ -156,7 +191,7 @@ func pla (points []Point, initialWeights []float64, maxIterations int) ([]float6
 			// if the amount of miss classified points is zero or we ran too many iterations, break out of the loop.
 			if inError == 0 { break }
 		}
-		// if iterationCounter % 100000 == 0 {fmt.Println(iterationCounter)}
+		// if iterationCounter % 10000 == 0 {fmt.Println(iterationCounter)}
 		if iterationCounter == maxIterations { break } // if we ran too many iterations, break out of the loop.
 		iterationCounter++ /* increment iteration counter. increments should happen only if current iteration has more than
 		zero miss classified points, which means this iteration will be used to adjust the weights. */
@@ -170,61 +205,6 @@ func pla (points []Point, initialWeights []float64, maxIterations int) ([]float6
 			weightVector[j] += points[random].y * points[random].x[j]
 		}
 		// fmt.Println(iterationCounter, weightVector, missClassifiedPoints)
-	}	
-	return weightsMinError, iterationCounter, 
-		float64(minError)/float64(len(points)) // return the 'weighVector' and the amount of iterations
-}
-
-/* executes the perceptron learning algorithm on given 'points' and returns two values: a slice of weights, having the same 
-length as the amount of parameters found in the given 'points' and returns the amount of iterations. This one uses all 
-miss classified points to update the weights to be adjusted. */
-func plaUseAll (points []Point, initialWeights []float64, maxIterations int) ([]float64, int, float64) {
-
-	var weightVector []float64 /* a slice, which length will be the amount of point parameters, that will hold the weights to 
-	best classify the given 'points'. */
-	if initialWeights != nil  && len(initialWeights) == len(points[0].x) { // if any given weights with correct length.
-		weightVector = initialWeights // keep the given weights.
-	} else { // if no given weights to be used as initial weights.
-		weightVector = make([]float64, len(points[0].x)) // creates a new set of weights which defaults to zeros.
-	}
-	iterationCounter := 0 // counter for the amount of iterations.
-	updateVector := make([]float64, len(weightVector)) // vector that will hold the sum of all miss classified points.
-	var missClassifiedAmount int // counter for the amount of miss classified points.
-	minError := len(points) // initializing the amount of error in sample as the amount of points in the sample.
-	weightsMinError := make([]float64, len(weightVector)) // weights for the iteration with lowest in sample error amount.
-
-	for { // while true.
-		missClassifiedAmount = 0 // reseting counter for miss classified points.
-
-		for i := range points { // for each index i in points.
-			/* if the dot product result is bigger than zero but the point classification is not bigger than zero. In other 
-			words, if the class estimated by the weights is not the correct class known to the point. */
-			if (dotProduct(weightVector, points[i].x) > 0.0) != (points[i].y > 0.0) {
-				missClassifiedAmount++ // increment counter for miss classified points.
-				// accumulates the sum of all points, multiplied by points class, in a single vector.
-				for j := range updateVector { // for each parameter in the 'updateVector'.
-					// sum point parameter multiplied by points class (either +1.0 or -1.0).
-					updateVector[j] += points[i].y * points[i].x[j]
-				}
-			}
-		}
-
-		inError := missClassifiedAmount // retrieving amount of miss classified points at current iteration.
-		if inError < minError { // if we found a lower in sample error amount.
-			minError = inError // copy that in error amount and we also have to copy the 'weightVector' at that time.
-			for j, v := range weightVector { // for each weight in 'weightVector'.
-				weightsMinError[j] = v // copy weight to the vector saving values at the iteration with lowest error.
-			}
-			// if the amount of miss classified points is zero , break out of the loop.
-			if inError == 0 { break }
-		}
-		if iterationCounter == maxIterations { break } // if we ran too many iterations, break out of the loop.
-		iterationCounter++ /* increment iteration counter. increments should happen only if current iteration has more than
-		zero miss classified points, which means this iteration will be used to adjust the weights. */
-
-		for j := range weightVector { // for each parameter in the 'weightVector'.
-			weightVector[j] += updateVector[j] // add all miss classified points to 'weightVector'.
-		}
 	}	
 	return weightsMinError, iterationCounter, 
 		float64(minError)/float64(len(points)) // return the 'weighVector' and the amount of iterations
@@ -266,13 +246,14 @@ func disagreementBetweenFandG (f TargetFunction, weights []float64, interval [][
 	}
 
 	disagreementCounter := 0 // counter for the amount of sample points f will disagree with g.
-	dummyPoint := []float64{1.0, 0.0, 0.0} // point created to hold temporary values.
+	dummyPoint := Point{x: []float64{1.0, 0.0, 0.0}} // point created to hold temporary values.
 	// calculating disagreement.
 	for i := interval[0][0]; i <= interval[0][1]; i += step { // for each sample point x value .
 		for j := interval[1][0]; j <= interval[1][1]; j += step { // for each sample point y value.
-			dummyPoint[1], dummyPoint[2] = i/roundFactor, j/roundFactor // sets point's x and y value.
+			// sets dummy point's x and y value.
+			dummyPoint.x[1], dummyPoint.x[2], dummyPoint.y = i/roundFactor, j/roundFactor, f.classifyPoint(dummyPoint.x)
 			// if the dot product's signal differ from f classification's signal.
-			if (dotProduct(weights, dummyPoint) > 0.0) != (f.classifyPoint(dummyPoint) > 0.0) {
+			if isMissClassFied(weights, dummyPoint) {
 				disagreementCounter++ // increment disagreement counter.
 			}
 		}
@@ -538,7 +519,7 @@ func missClassifiedRate (weightVector []float64, points []Point) float64 {
 	for i := range points { // for each point in given 'points' slice/array.
 		/* if the dot product result is bigger than zero but the point classification is not bigger than zero. In other 
 		words, if the class estimated by the weights is not the correct class known to the point. */
-		if (dotProduct(weightVector, points[i].x) > 0.0) != (points[i].y > 0.0) {
+		if isMissClassFied(weightVector, points[i]) {
 			miss++ // it's a miss. the linear regression does not give the same class the point has.
 		}
 	}
@@ -746,7 +727,7 @@ func coordinateDescent (function func([]float64) float64, partialDerivatives []f
 
 /* given a slice of 'points', a 'learningRate', a 'threshold' and a maximum amount of iteration 'maxIterations' to allow 
 the logistic regression to run, returns a slice of weights where the logistic regression stopped and its corresponding 
-amount of iterations. The logistic regression stops when it converges or when its amount of iterations reaches a given 
+amount of iterations. The logistic regression stops when it converges or when its amount of iterations reaches given 
 'maxIterations'. The converge happens when the euclidean distance between consecutive calculated weights is smaller than 
 given 'threshold'. 'learningRate' changes the size of the step used to update weights. This function makes a full pass 
 through all given points in a random permutation of their order before evaluating the euclidean distance between consecutive 
